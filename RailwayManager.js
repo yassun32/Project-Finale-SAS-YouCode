@@ -230,6 +230,10 @@ function affichage(array) {
         console.log(`Prix : ${trips[i].price} DH`)
         console.log(`Places disponibles : ${trips[i].availableSeats} `)
         console.log()
-                
     }
+}
+let ticket = []
+function Acheter(array) {
+    let name = prompt("Enter nom du passager :")
+    let idt = prompt("Entre Identifiant du trajet ")
 }
