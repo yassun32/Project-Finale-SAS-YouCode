@@ -181,8 +181,11 @@ const trips = [
         availableSeats: 50
     }
 ];
-let choix;
-do {
+const ticket = []
+let countid = 0
+let choix = 1
+while (choix !== 0) {
+    console.log()//dertha bach dir newline mli douz chi haja en seccess
     console.log("1. Afficher les trajets");
     console.log("2. Acheter un ticket");
     console.log("3. Afficher les tickets");
@@ -194,13 +197,13 @@ do {
     choix = Number(prompt("Votre choix : "));
     switch (choix) {
         case 1:
-            affichage(trips)
+            affichage(trips);
             break;
         case 2:
-            console.log("Acheter un ticket");
+            Acheter();
             break;
         case 3:
-            console.log("Afficher les tickets");
+            affichageTeck();
             break;
         case 4:
             console.log("Annuler un ticket");
@@ -221,9 +224,9 @@ do {
             console.log("Choix invalide !");
     }
 }
-while (choix !== 0);
-function affichage(array) {
-    for (let i = 0; i < array.length; i++) {
+function affichage() {
+    console.log("=== TRAJETS DISPONIBLES ===")
+    for (let i = 0; i < trips.length; i++) {
         console.log(`#${trips[i].id} ${trips[i].departure} -→ ${trips[i].destination}`)
         console.log(`Départ : ${trips[i].departureTime} `)
         console.log(`Arrivée : ${trips[i].arrivalTime} `)
@@ -232,8 +235,59 @@ function affichage(array) {
         console.log()
     }
 }
-let ticket = []
-function Acheter(array) {
-    let name = prompt("Enter nom du passager :")
-    let idt = prompt("Entre Identifiant du trajet ")
+function Acheter() {
+    let nom = prompt("Enter nom du passager : ")
+    let idtj = Number(prompt("Entre Identifiant du trajet : "))
+    console.log()
+    if (idtj >= 21 || idtj <= 0) {
+        console.log("Trajet introuvable")
+        return
+    }
+    for (let i = 0; i < trips.length; i++) {
+        if (idtj === trips[i].id) {
+            if (trips[i].availableSeats >= 1) {
+                trips[i].availableSeats-- //hna ghtn9es mn lblayes dyal tran lkhas bl idtj
+                console.log(countid)
+                countid++
+                ticket.push({
+                    id: countid,
+                    passengerName: nom,
+                    tripId: idtj,
+                    seatNumber: 50 - trips[i].availableSeats,
+                    price: trips[i].price
+                });
+                console.log(countid)
+                console.log("Ticket acheté avec succès")
+            }
+            else (console.log("Train complet."))
+        }
+    }
+}
+function affichageTeck() {
+    if (ticket.length === 0) {
+        console.log()
+        console.log("Aucun ticket enregistré.")
+        return
+    }
+    console.log()
+    console.log("======= TICKETS =======")
+    for (let i = 0; i < ticket.length; i++) {
+        
+        console.log()
+        console.log(`Ticket #${ticket[i].id}`)
+        console.log(`Passager : ${ticket[i].passengerName} `)
+        console.log(`Trajet : ${trips[ticket[i].tripId - 1].departure} -→ ${trips[ticket[i].tripId - 1].destination}`)
+        console.log(`Place : ${ticket[i].seatNumber} `)
+        console.log(`Prix : ${ticket[i].price} DH`)
+    }
+
+}
+function Annuler() {
+    let idTkRm = prompt("Identifiant du ticket : ")
+    for (let i = 0; i < ticket.length; i++) {
+        if (idTkRm === ticket[i].id) {
+            ticket.splice(i, 1)
+            
+        }
+    }
 }
