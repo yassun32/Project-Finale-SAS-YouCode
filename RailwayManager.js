@@ -182,6 +182,7 @@ const trips = [
     }
 ];
 const ticket = []
+const x = []
 let countid = 0
 let choix = 1
 while (choix !== 0) {
@@ -206,7 +207,7 @@ while (choix !== 0) {
             affichageTeck();
             break;
         case 4:
-            console.log("Annuler un ticket");
+            Annuler();
             break;
         case 5:
             console.log("Rechercher un ticket");
@@ -272,7 +273,7 @@ function affichageTeck() {
     console.log()
     console.log("======= TICKETS =======")
     for (let i = 0; i < ticket.length; i++) {
-        
+
         console.log()
         console.log(`Ticket #${ticket[i].id}`)
         console.log(`Passager : ${ticket[i].passengerName} `)
@@ -283,11 +284,16 @@ function affichageTeck() {
 
 }
 function Annuler() {
-    let idTkRm = prompt("Identifiant du ticket : ")
+    let idAvSt = []
+    let idTkRm = prompt("Entre identifiant du ticket : ")
     for (let i = 0; i < ticket.length; i++) {
         if (idTkRm === ticket[i].id) {
-            ticket.splice(i, 1)
-            
+            idAvSt.push({
+                id: idTkRm,
+                mvAvSt: [ticket[i].seatNumber]
+            })
+            ticket[i].splice(i, 1)
+            console.log(idAvSt)
         }
     }
-}
+}   
