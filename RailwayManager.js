@@ -185,33 +185,39 @@ const ticket = [
     {
         id: 1,
         passengerName: "yassine",
-        tripId: 2,
+        tripId: 1,
         seatNumber: 1,
-        price: 80
+        price: 30
     },
     {
         id: 2,
         passengerName: "sara",
         tripId: 1,
-        seatNumber: 1,
-        price: 90
+        seatNumber: 2,
+        price: 30
     },
     {
         id: 3,
         passengerName: "abderehmane",
-        tripId: 2,
-        seatNumber: 2,
-        price: 80
+        tripId: 1,
+        seatNumber: 3,
+        price: 30
     },
     {
         id: 4,
         passengerName: "lahcen",
-        tripId: 4,
-        seatNumber: 1,
-        price: 100
+        tripId: 1,
+        seatNumber: 4,
+        price: 30
     },
 ]
+trips[0].availableSeats--
+trips[0].availableSeats--
+trips[0].availableSeats--
+trips[0].availableSeats--
+let countid = 4;
 const x = []
+let choix = 1
 while (choix !== 0) {
     console.log()//dertha bach dir newline mli douz chi haja en seccess
     console.log("1. Afficher les trajets");
@@ -252,12 +258,6 @@ while (choix !== 0) {
             console.log("Choix invalide !");
     }
 }
-let countid
-if (ticket.length === 0) {//no ticket
-    countid = 0
-}
-else (countid = ticket[ticket.length - 1].id)//khasni n3ref 3lax derna -1
-let choix = 1
 function affichage() {
     console.log("=== TRAJETS DISPONIBLES ===")
     for (let i = 0; i < trips.length; i++) {
@@ -279,11 +279,25 @@ function Acheter() {
     }
     for (let i = 0; i < trips.length; i++) {
         if (idtj === trips[i].id) {
-            for (let j = 0; j < array.length; j++) {
-                if(idtj === x[j].id){//hna x[j] dertha t9leb id de trajet
-                    
+            for (let j = 0; j < x.length; j++) {
+                if (idtj === x[j].id) {//hna x[j] dertha t9leb id de trajet
+                    countid++
+                    ticket.push({
+                        id: countid,
+                        passengerName: nom,
+                        tripId: idtj,
+                        seatNumber: x[j].mvAvSt,
+                        price: trips[i].price
+                    })
+                    x.splice(j, 1)
+                    console.log(x)
+                    console.log("Ticket acheté avec succès")
+                    return //n9der ndir else if ms khsha dkhel wset for 
+                    //wila dertha west lfor man9derch nbokli 3la array dyal x bach nl9a idtj
+                    // so atkhdem f7ala we7da ila kant idtj hiya nit li flwel dl array de x
+                }
             }
-            else if (trips[i].availableSeats >= 1) {
+            if (trips[i].availableSeats >= 1) {
                 trips[i].availableSeats-- //hna ghtn9es mn lblayes dyal tran lkhas bl idtj
                 countid++
                 ticket.push({
