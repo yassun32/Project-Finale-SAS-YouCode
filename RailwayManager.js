@@ -181,10 +181,37 @@ const trips = [
         availableSeats: 50
     }
 ];
-const ticket = []
+const ticket = [
+    {
+        id: 1,
+        passengerName: "yassine",
+        tripId: 2,
+        seatNumber: 1,
+        price: 80
+    },
+    {
+        id: 2,
+        passengerName: "sara",
+        tripId: 1,
+        seatNumber: 1,
+        price: 90
+    },
+    {
+        id: 3,
+        passengerName: "abderehmane",
+        tripId: 2,
+        seatNumber: 2,
+        price: 80
+    },
+    {
+        id: 4,
+        passengerName: "lahcen",
+        tripId: 4,
+        seatNumber: 1,
+        price: 100
+    },
+]
 const x = []
-let countid = 0
-let choix = 1
 while (choix !== 0) {
     console.log()//dertha bach dir newline mli douz chi haja en seccess
     console.log("1. Afficher les trajets");
@@ -225,6 +252,12 @@ while (choix !== 0) {
             console.log("Choix invalide !");
     }
 }
+let countid
+if (ticket.length === 0) {//no ticket
+    countid = 0
+}
+else (countid = ticket[ticket.length - 1].id)//khasni n3ref 3lax derna -1
+let choix = 1
 function affichage() {
     console.log("=== TRAJETS DISPONIBLES ===")
     for (let i = 0; i < trips.length; i++) {
@@ -246,9 +279,12 @@ function Acheter() {
     }
     for (let i = 0; i < trips.length; i++) {
         if (idtj === trips[i].id) {
-            if (trips[i].availableSeats >= 1) {
+            for (let j = 0; j < array.length; j++) {
+                if(idtj === x[j].id){//hna x[j] dertha t9leb id de trajet
+                    
+            }
+            else if (trips[i].availableSeats >= 1) {
                 trips[i].availableSeats-- //hna ghtn9es mn lblayes dyal tran lkhas bl idtj
-                console.log(countid)
                 countid++
                 ticket.push({
                     id: countid,
@@ -257,7 +293,6 @@ function Acheter() {
                     seatNumber: 50 - trips[i].availableSeats,
                     price: trips[i].price
                 });
-                console.log(countid)
                 console.log("Ticket acheté avec succès")
             }
             else (console.log("Train complet."))
@@ -284,16 +319,19 @@ function affichageTeck() {
 
 }
 function Annuler() {
-    let idAvSt = []
-    let idTkRm = prompt("Entre identifiant du ticket : ")
+    let idTkRm = Number(prompt("Entre identifiant du ticket : "))
+    console.log()
     for (let i = 0; i < ticket.length; i++) {
         if (idTkRm === ticket[i].id) {
-            idAvSt.push({
-                id: idTkRm,
+            x.push({
+                id: ticket[i].tripId,
                 mvAvSt: [ticket[i].seatNumber]
             })
-            ticket[i].splice(i, 1)
-            console.log(idAvSt)
+            ticket.splice(i, 1)
+            console.log(x)
+            console.log("Ticket annulé avec succès.")
+            return
         }
     }
-}   
+    console.log("Ticket introuvable.")
+}
