@@ -253,7 +253,7 @@ while (choix !== 0) {
             TrierTr();
             break;
         case 8:
-            console.log("Statistiques");
+            Statistiques();
             break;
         case 0:
             console.log("Au revoir !");
@@ -294,9 +294,7 @@ function Acheter() {
                         seatNumber: x[j].mvAvSt,
                         price: trips[i].price
                     })
-                    console.log(x + "befor spillcce")
                     x.splice(j, 1)
-                    console.log(x + "after spillcce")
                     console.log("Ticket acheté avec succès")
                     return //n9der ndir else if ms khsha dkhel wset for 
                     //wila dertha west lfor man9derch nbokli 3la array dyal x bach nl9a idtj
@@ -349,7 +347,6 @@ function Annuler() {
                 mvAvSt: ticket[i].seatNumber
             })
             idtrip = ticket[i].tripId
-            console.log(idtrip)
             trips[idtrip - 1].availableSeats++
             ticket.splice(i, 1)
             console.log("Ticket annulé avec succès.")
@@ -379,10 +376,11 @@ function Recherchertick() {
 }
 function FilterTr() {
     let ville = prompt("Entre la ville de départ :")
+    console.log()
     let counter = 0
     for (let i = 0; i < trips.length; i++) {
         if (ville === trips[i].departure) {
-            console.log(`${trips[i].departure} -→ ${trips[i].destination} : ${trips[i]} DH`)
+            console.log(`${trips[i].departure} -→ ${trips[i].destination} : ${trips[i].price} DH`)
             counter++
         }
     }
@@ -390,38 +388,54 @@ function FilterTr() {
         console.log("cette ville nest pas disponible")
     }
 }
-function TrierTr(){
-    const trcros = []
-    trcros.push(...trips)//hna knt kanpochi bla no9as ms kay3etini aaray west array
+function TrierTr() {
+    //const trcros = []
+    //trcros.push(...trips)//hna knt kanpochi bla no9as ms kay3etini aaray west array
+    const trcros = trips.slice();
     for (let i = 0; i < trcros.length - 1; i++) {
-        for (let j = 0; j < trcros.length - i - 1 ; j++) {
-            if (trcros[j].price  > trcros[j + 1].price) {
+        for (let j = 0; j < trcros.length - i - 1; j++) {
+            if (trcros[j].price > trcros[j + 1].price) {
                 temp = trcros[j]
-                trcros[j]= trcros[j + 1]
+                trcros[j] = trcros[j + 1]
                 trcros[j + 1] = temp
             }
         }
     }
     for (let i = 0; i < trcros.length; i++) {
         console.log(`${trcros[i].departure} -→ ${trcros[i].destination} : ${trcros[i].price} DH`)
-        
+
     }
 }
-function Statistiques(){
-    let Nbticket
-    let chiffre = 0
-    if (trips[0] === undefined)
+function Statistiques() {
+    let Nbticket = 0
+    let sommetick = 0
+    console.log()   
+    if (ticket[0] === undefined)
         console.log("acune ticket achetee")
-    for (let i = 0; i < ticket.length; i++) {
-        if (trips[i] !== undefined) {
-            Nbticket++
+    else{
+            for (let i = 0; i < ticket.length; i++) {
+            if (ticket[i] !== undefined) {
+                Nbticket++
+            }
         }
+        console.log("Nombre total de tickets : " + Nbticket)//
+        console.log()
+        for (let i = 0; i < ticket.length; i++) {
+            sommetick += ticket[i].price
+        }
+        console.log("Chiffre d'affaires total : " + sommetick + " DH")
+        console.log()
+        let z = 0
+        let minav = trips[0].availableSeats
+        for (let i = 0; i < trips.length; i++) {
+            if (minav > trips[i].availableSeats) {
+                minav = trips[i].availableSeats
+            }
+            z = i
+        }
+        console.log("Trajet le plus vendu : ")
+        minav = 50 - minav
+        console.log(`${trips[z].departure} -→ ${trips[z].destination}`)
+        console.log(minav + " tickets vendus")
     }
-    console.log("Nombre total de tickets : " + Nbticket)
-    for (let i = 0; i < ticket.length; i++) {
-        chiffre += ticket[i].price
-    }
-    console.log("Chiffre d'affaires total : " + chiffre + " DH")
-
-    
 }
