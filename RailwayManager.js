@@ -243,7 +243,7 @@ while (choix !== 0) {
             Annuler();
             break;
         case 5:
-            console.log("Rechercher un ticket");
+            Recherchertick();
             break;
         case 6:
             console.log("Filtrer les trajets");
@@ -282,7 +282,7 @@ function Acheter() {
             for (let j = 0; j < x.length; j++) {
                 if (idtj === x[j].id) {//hna x[j] dertha t9leb id de trajet
                     countid++
-                    trips[i].availableSeats-- // htaa ila 3etito mma93ad m2anili rah khaso yn9es flblayes li na9
+                    trips[i].availableSeats-- // htaa ila 3etito mma93ad m2anili rah khaso yn9es flblayes dyal tak tran
                     ticket.push({
                         id: countid,
                         passengerName: nom,
@@ -346,7 +346,7 @@ function Annuler() {
             })
             idtrip = ticket[i].tripId
             console.log(idtrip)
-            trips[idtrip -1 ].availableSeats++
+            trips[idtrip - 1].availableSeats++
             ticket.splice(i, 1)
             console.log(x)
             console.log("Ticket annulé avec succès.")
@@ -354,4 +354,23 @@ function Annuler() {
         }
     }
     console.log("Ticket introuvable.")
+}
+function Recherchertick() {
+    let rechnom = prompt("Entre nom du passager : ")
+    let counter = 0
+    for (let i = 0; i < ticket.length; i++) {
+        if (rechnom === ticket[i].passengerName) {
+            console.log()
+            console.log(`Ticket #${ticket[i].id}`)
+            console.log(`Passager : ${ticket[i].passengerName} `)
+            console.log(`Trajet : ${trips[ticket[i].tripId - 1].departure} -→ ${trips[ticket[i].tripId - 1].destination}`)
+            console.log(`Place : ${ticket[i].seatNumber} `)
+            console.log(`Prix : ${ticket[i].price} DH`)
+            console.log()
+            counter++
+        }
+    }
+    if (counter === 0) {
+        console.log("acune ticket apprend " + rechnom)
+    }
 }
