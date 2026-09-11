@@ -182,7 +182,7 @@ const trips = [
     }
 ];
 const ticket = [
-    {
+    /*{
         id: 1,
         passengerName: "yassine",
         tripId: 1,
@@ -209,13 +209,13 @@ const ticket = [
         tripId: 1,
         seatNumber: 4,
         price: 30
-    },
+    },*/
 ]
-trips[0].availableSeats--
-trips[0].availableSeats--
-trips[0].availableSeats--
-trips[0].availableSeats--
-let countid = 4;
+//trips[0].availableSeats--
+//trips[0].availableSeats--
+//trips[0].availableSeats--
+//trips[0].availableSeats--
+let countid = 0;
 const x = []
 let choix = 1
 while (choix !== 0) {
@@ -282,6 +282,7 @@ function Acheter() {
             for (let j = 0; j < x.length; j++) {
                 if (idtj === x[j].id) {//hna x[j] dertha t9leb id de trajet
                     countid++
+                    trips[i].availableSeats-- // htaa ila 3etito mma93ad m2anili rah khaso yn9es flblayes li na9
                     ticket.push({
                         id: countid,
                         passengerName: nom,
@@ -289,8 +290,9 @@ function Acheter() {
                         seatNumber: x[j].mvAvSt,
                         price: trips[i].price
                     })
+                    console.log(x + "befor spillcce")
                     x.splice(j, 1)
-                    console.log(x)
+                    console.log(x + "after spillcce")
                     console.log("Ticket acheté avec succès")
                     return //n9der ndir else if ms khsha dkhel wset for 
                     //wila dertha west lfor man9derch nbokli 3la array dyal x bach nl9a idtj
@@ -334,13 +336,17 @@ function affichageTeck() {
 }
 function Annuler() {
     let idTkRm = Number(prompt("Entre identifiant du ticket : "))
+    let idtrip
     console.log()
     for (let i = 0; i < ticket.length; i++) {
         if (idTkRm === ticket[i].id) {
             x.push({
                 id: ticket[i].tripId,
-                mvAvSt: [ticket[i].seatNumber]
+                mvAvSt: ticket[i].seatNumber
             })
+            idtrip = ticket[i].tripId
+            console.log(idtrip)
+            trips[idtrip -1 ].availableSeats++
             ticket.splice(i, 1)
             console.log(x)
             console.log("Ticket annulé avec succès.")
