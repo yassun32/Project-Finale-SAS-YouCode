@@ -227,6 +227,7 @@ while (choix !== 0) {
     console.log("5. Rechercher un ticket");
     console.log("6. Filtrer les trajets");
     console.log("7. Trier les trajets");
+    console.log("8. Statistiques");
     console.log("0. Quitter");
     choix = Number(prompt("Votre choix : "));
     switch (choix) {
@@ -246,10 +247,13 @@ while (choix !== 0) {
             Recherchertick();
             break;
         case 6:
-            console.log("Filtrer les trajets");
+            FilterTr();
             break;
         case 7:
-            console.log("Trier les trajets");
+            TrierTr();
+            break;
+        case 8:
+            console.log("Statistiques");
             break;
         case 0:
             console.log("Au revoir !");
@@ -348,7 +352,6 @@ function Annuler() {
             console.log(idtrip)
             trips[idtrip - 1].availableSeats++
             ticket.splice(i, 1)
-            console.log(x)
             console.log("Ticket annulé avec succès.")
             return
         }
@@ -373,4 +376,52 @@ function Recherchertick() {
     if (counter === 0) {
         console.log("acune ticket apprend " + rechnom)
     }
+}
+function FilterTr() {
+    let ville = prompt("Entre la ville de départ :")
+    let counter = 0
+    for (let i = 0; i < trips.length; i++) {
+        if (ville === trips[i].departure) {
+            console.log(`${trips[i].departure} -→ ${trips[i].destination} : ${trips[i]} DH`)
+            counter++
+        }
+    }
+    if (counter === 0) {
+        console.log("cette ville nest pas disponible")
+    }
+}
+function TrierTr(){
+    const trcros = []
+    trcros.push(...trips)//hna knt kanpochi bla no9as ms kay3etini aaray west array
+    for (let i = 0; i < trcros.length - 1; i++) {
+        for (let j = 0; j < trcros.length - i - 1 ; j++) {
+            if (trcros[j].price  > trcros[j + 1].price) {
+                temp = trcros[j]
+                trcros[j]= trcros[j + 1]
+                trcros[j + 1] = temp
+            }
+        }
+    }
+    for (let i = 0; i < trcros.length; i++) {
+        console.log(`${trcros[i].departure} -→ ${trcros[i].destination} : ${trcros[i].price} DH`)
+        
+    }
+}
+function Statistiques(){
+    let Nbticket
+    let chiffre = 0
+    if (trips[0] === undefined)
+        console.log("acune ticket achetee")
+    for (let i = 0; i < ticket.length; i++) {
+        if (trips[i] !== undefined) {
+            Nbticket++
+        }
+    }
+    console.log("Nombre total de tickets : " + Nbticket)
+    for (let i = 0; i < ticket.length; i++) {
+        chiffre += ticket[i].price
+    }
+    console.log("Chiffre d'affaires total : " + chiffre + " DH")
+
+    
 }
